@@ -1,10 +1,10 @@
 const express = require('express');
 const path = require('path');
-const dataBase = require('./db/db.json');
+// const dataBase = require('./db/db.json');
 // const fs = require('fs');
 const util = require('util');
 const api = require('./routes/index.js');
-const uuid = require('./helpers/uuid')
+// const uuid = require('./helpers/uuid')
 // console.log(dataBase)
 
 // const readFromFile = util.promisify(fs.readFile);
@@ -20,6 +20,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', api); 
+
 // response to get index.html
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))

@@ -31,40 +31,40 @@ notes.post('/', (req, res) => {
 
 }); 
 
-notes.get('/:note_id', (req, res) => {
-    if (req.params.note_id) {
-      console.info(`${req.method} request received to get a single a Note`);
-      const notesId = req.params.note_id;
-      for (let i = 0; i < dataBase.length; i++) {
-        const currentNote = dataBase[i];
-        if (currentNote.note_id === notesId) {
-          res.send(dataBase);
-          return;
-        }
-      }
-      res.status(404).send('Review not found');
-    } else {
-      res.status(400).send('Review ID not provided');
-    }
-  });
+// notes.get('/:note_id', (req, res) => {
+//     if (req.params.note_id) {
+//       console.info(`${req.method} request received to get a single a Note`);
+//       const notesId = req.params.note_id;
+//       for (let i = 0; i < dataBase.length; i++) {
+//         const currentNote = dataBase[i];
+//         if (currentNote.note_id === notesId) {
+//           res.send(dataBase);
+//           return;
+//         }
+//       }
+//       res.status(404).send('Review not found');
+//     } else {
+//       res.status(400).send('Review ID not provided');
+//     }
+//   });
   
-  notes.delete('/:note_id', (req, res) => {
-    console.log(req.body);
-    console.log(req.params.note_id);
-    if (req.body && req.params.note_id) {
-      console.info(`${req.method} request received to delete a note`);
-      const noteId = req.params.note_id;
-      console.log(noteId)
-      for (let i = 0; i < dataBase.length; i++) {
-        const currentNote = dataBase[i];
-        if (currentNote.note_id === noteId) {
-          res.send(currentNote);
-          console.log(currentNote)
-          return;
-        }
-      }
-      res.status(404).json('Review ID not found');
-    }
-  }); 
+//   notes.delete('/:note_id', (req, res) => {
+//     console.log(req.body);
+//     console.log(req.params.note_id);
+//     if (req.body && req.params.note_id) {
+//       console.info(`${req.method} request received to delete a note`);
+//       const noteId = req.params.note_id;
+//       console.log(noteId)
+//       for (let i = 0; i < dataBase.length; i++) {
+//         const currentNote = dataBase[i];
+//         if (currentNote.note_id === noteId) {
+//           res.send(currentNote);
+//           console.log(currentNote)
+//           return;
+//         }
+//       }
+//       res.status(404).json('Review ID not found');
+//     }
+//   }); 
 
 module.exports = notes;
