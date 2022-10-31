@@ -38,6 +38,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
 
   console.info(`${req.method} request received to add a note`);
+  console.log(`${req}`)
 
   const { title, text } = req.body;
 
@@ -47,7 +48,7 @@ app.post('/api/notes', (req, res) => {
       text,
       note_id: uuid(),
     };
-
+    console.log(newNote)
     readAndAppend(newNote, './db/db.json');
     res.json(`Note added successfully 🚀`);
   } else {
@@ -64,6 +65,7 @@ const readAndAppend = (content, file) => {
       const parsedData = JSON.parse(data);
       parsedData.push(content);
       writeToFile(file, parsedData);
+      console.log(file)
       console.log(parsedData)
     }
   });
@@ -73,6 +75,53 @@ const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
     err ? console.error(err) : console.info(`\nData written to ${destination}`)
   );
+
+// app.get('/api/notes/:note_id', (req, res) => {
+//   console.info(`${req.method} request received to get upvotes for a review`);
+//   for (let i = 0; i < dataBase.length; i++) {
+//     const currentNote = dataBase[i];
+//     if (currentNote.note_id === req.params.note_id) {
+//       res.status(200).json({
+//         message: `The review with ID ${currentNote.note_id} has ${currentNote.title} and ${currentNote.text}`,
+//         upvotes: currentNote.upvotes,
+//       });
+//       return;
+//     }
+//   }
+//   res.status(404).json('Review ID not found');
+// });
+
+app.get('/api/notes/:note_id', (req, res) => {
+  if (req.params.note_id) {
+    console.info(`${req.method} request received to get a single a review`);
+    const notesId = req.params.note_id;
+    for (let i = 0; i < dataBase.length; i++) {
+      const currentNote = dataBase[i];
+      if (currentNote.note_id === notesId) {
+        res.send(currentNote);
+        return;
+      }
+    }
+    res.status(404).send('Review not found');
+  } else {
+    res.status(400).send('Review ID not provided');
+  }
+});
+
+app.post('/api/notes/:note_id', (req, res) => {
+  if (req.body && req.params.note_id) {
+    console.info(`${req.method} request received to upvote a review`);
+    const noteId = req.params.note_id;
+    for (let i = 0; i < dataBase.length; i++) {
+      const currentNote = dataBase[i];
+      if (currentNote.note_id === noteId) {
+        res.send(currentNote);
+        return;
+      }
+    }
+    res.status(404).json('Review ID not found');
+  }
+});
 
 
 // get all notes
