@@ -18,9 +18,11 @@ const readFromFile = util.promisify(fs.readFile);
     });
   };
 
+// write new note to db
   const writeToFile = (destination, content) =>
   fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
     err ? console.error(err) : console.info(`\nData written to ${destination}`)
   );
 
+  //export functions to be called on other places
   module.exports = { readFromFile, writeToFile, readAndAppend };

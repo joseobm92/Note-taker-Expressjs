@@ -3,12 +3,13 @@ const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 const dataBase = require('../db/db.json'); 
 
+// method to readfromfile and parse data 
 notes.get('/', (req, res) => {
     console.info(`${req.method} request received for new Note`);
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-
+//method to post new note into db
 notes.post('/', (req, res) => {
 
     console.info(`${req.method} request received to add a note`);
@@ -28,8 +29,12 @@ notes.post('/', (req, res) => {
     } else {
         res.error('Error in adding Note');
     }
-
+    
 }); 
+
+//export notes to be used somewhere else
+module.exports = notes;
+
 
 // notes.get('/:note_id', (req, res) => {
 //     if (req.params.note_id) {
@@ -66,5 +71,3 @@ notes.post('/', (req, res) => {
 //       res.status(404).json('Review ID not found');
 //     }
 //   }); 
-
-module.exports = notes;

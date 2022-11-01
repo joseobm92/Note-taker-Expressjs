@@ -1,16 +1,13 @@
 const express = require('express');
 const path = require('path');
-// const dataBase = require('./db/db.json');
-// const fs = require('fs');
+
 const util = require('util');
 const api = require('./routes/index.js');
-// const uuid = require('./helpers/uuid')
-// console.log(dataBase)
 
-// const readFromFile = util.promisify(fs.readFile);
 
 const app = express();
 
+// dynamic port to be able to use heroku
 const PORT = process.env.PORT || 3001;
 
 app.use(express.static('public'));
@@ -31,7 +28,7 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
-
+// listening to port 3001
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
