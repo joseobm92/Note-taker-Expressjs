@@ -1,5 +1,5 @@
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-  # Note-taker-Expressjs
+  # Note-taker-Express.js
  
   * [Installation](#installation)
   * [Description](#description)
